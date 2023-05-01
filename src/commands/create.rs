@@ -4,7 +4,7 @@ use octocrab::Octocrab;
 
 use crate::utils::{config, github, loader, openai};
 
-pub async fn run() {
+pub async fn run(sub_matches: &clap::ArgMatches) {
     let token = std::env::var("GITHUB_TOKEN").unwrap_or_else(|_| {
         println!("Error: GITHUB_TOKEN environment variable not set");
         process::exit(0);
@@ -30,7 +30,7 @@ pub async fn run() {
 
     let mut loader = loader::create_loader("Generating");
     let template = config::get_template();
-    let description = openai::generate_description(&diff, &template)
+    let description = openai::generate_description(&diff, &template, sub_matches.get_flag("gpt-4"))
         .await
         .unwrap_or_else(|err| {
             println!("{}", err);

@@ -2,7 +2,7 @@ use std::process;
 
 use crate::utils::{config, github, loader, openai};
 
-pub async fn run() {
+pub async fn run(sub_matches: &clap::ArgMatches) {
     let diff = github::get_diff();
     if diff.is_empty() {
         println!("No diff found");
@@ -11,7 +11,7 @@ pub async fn run() {
 
     let mut loader = loader::create_loader("Generating");
     let template = config::get_template();
-    match openai::generate_description(&diff, &template).await {
+    match openai::generate_description(&diff, &template, sub_matches.get_flag("gpt-4")).await {
         Ok(description) => {
             loader.stop_with_message("✅ Generated description\n".into());
             println!("{}", description);
