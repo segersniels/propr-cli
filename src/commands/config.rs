@@ -10,6 +10,11 @@ pub fn run(sub_matches: &ArgMatches) {
             let placeholder = config::get_template();
             let template = prompt::ask_with_editor(&placeholder);
 
+            // Don't bother overriding if we didn't do anything
+            if template.is_empty() {
+                return;
+            }
+
             config::update_template(&template);
         }
         _ => unreachable!(),
