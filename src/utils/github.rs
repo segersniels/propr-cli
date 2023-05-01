@@ -41,7 +41,7 @@ pub fn get_current_branch() -> String {
 }
 
 fn get_merge_base_commit_id(branch: &str) -> String {
-    let merge_output = execute_command("git", &["merge-base", "origin/HEAD", branch]);
+    let merge_output = execute_command("git", &["merge-base", "HEAD^", branch]);
 
     String::from_utf8(merge_output.stdout)
         .unwrap()
