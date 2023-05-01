@@ -23,4 +23,4 @@ version:
 
 changelog:
 	./scripts/generate-tags.sh
-	gitmoji-changelog .
+	gitmoji-changelog . -r $(shell make version)
