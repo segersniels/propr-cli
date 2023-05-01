@@ -1,11 +1,5 @@
 # Changelog
 
-<a name="propr@0.1.0" data-comment="this line is used by gitmoji-changelog, don't remove it!"></a>
-## Version propr@0.1.0
-
-### Changed
-- 🔨  Force the generation
-
 <a name="0.1.0" data-comment="this line is used by gitmoji-changelog, don't remove it!"></a>
 ## Version 0.1.0
 
