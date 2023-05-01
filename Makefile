@@ -23,4 +23,4 @@ version:
 
 changelog:
 	./scripts/generate-tags.sh
-	npx gitmoji-changelog
+	gitmoji-changelog .
