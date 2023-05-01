@@ -1,6 +1,6 @@
 use reqwest::Error;
 use serde::Deserialize;
-use std::env;
+use std::process;
 
 const MAX_TOKEN_LENGTH: i32 = 500;
 const FILES_TO_IGNORE: [&str; 11] = [
@@ -75,6 +75,11 @@ struct Response {
 }
 
 pub async fn generate_description(diff: &str, template: &str) -> Result<String, Error> {
+    let api_key = std::env::var("OPENAI_API_KEY").unwrap_or_else(|_| {
+        println!("Error: OPENAI_API_KEY environment variable not set");
+        process::exit(0);
+    });
+
     let prompt = generate_prompt(diff, template);
     let body = serde_json::json!({
         "model": "gpt-3.5-turbo",
@@ -92,10 +97,7 @@ pub async fn generate_description(diff: &str, template: &str) -> Result<String, 
         .post(url)
         .header(
             reqwest::header::AUTHORIZATION,
-            format!(
-                "Bearer {}",
-                env::var("OPENAI_API_KEY").unwrap_or(String::new())
-            ),
+            format!("Bearer {}", api_key),
         )
         .header(reqwest::header::CONTENT_TYPE, "application/json")
         .body(serde_json::to_string(&body).unwrap())
