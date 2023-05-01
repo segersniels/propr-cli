@@ -21,7 +21,6 @@ jobs:
 
   build:
     needs: lint
-    if: github.ref == 'refs/heads/master'
     strategy:
       fail-fast: false
       matrix:
