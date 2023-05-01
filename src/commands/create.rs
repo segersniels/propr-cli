@@ -5,14 +5,13 @@ use octocrab::Octocrab;
 use crate::utils::{config, github, loader, openai};
 
 pub async fn run() {
-    let token = std::env::var("GITHUB_TOKEN");
-    if token.is_err() {
+    let token = std::env::var("GITHUB_TOKEN").unwrap_or_else(|_| {
         println!("Error: GITHUB_TOKEN environment variable not set");
         process::exit(0);
-    }
+    });
 
     let octocrab = Octocrab::builder()
-        .personal_token(token.unwrap())
+        .personal_token(token)
         .build()
         .unwrap_or_else(|err| {
             println!("{}", err);
