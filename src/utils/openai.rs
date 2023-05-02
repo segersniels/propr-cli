@@ -74,6 +74,58 @@ struct Response {
     choices: [Choice; 1],
 }
 
+fn create_payload(model: &str, prompt: &str) -> serde_json::Value {
+    serde_json::json!({
+        "model": model,
+        "messages": [{ "role": "user", "content": prompt }],
+        "temperature": 0.7,
+        "top_p": 1,
+        "frequency_penalty": 0,
+        "presence_penalty": 0,
+        "max_tokens": MAX_TOKEN_LENGTH,
+    })
+}
+
+pub async fn generate_title(description: &str) -> Result<String, Error> {
+    let api_key = std::env::var("OPENAI_API_KEY").unwrap_or_else(|_| {
+        println!("Error: OPENAI_API_KEY environment variable not set");
+        process::exit(0);
+    });
+
+    let prompt =format!("Generate a concise PR title from the provided description prefixed with a suitable gitmoji.
+        \"\"\"
+        {}
+        \"\"\"
+        ",
+        description,
+    );
+
+    let body = create_payload("gpt-3.5-turbo", &prompt);
+    let response = reqwest::Client::new()
+        .post("https://api.openai.com/v1/chat/completions")
+        .header(
+            reqwest::header::AUTHORIZATION,
+            format!("Bearer {}", api_key),
+        )
+        .header(reqwest::header::CONTENT_TYPE, "application/json")
+        .body(serde_json::to_string(&body).unwrap())
+        .send()
+        .await?;
+
+    let result = response.text().await;
+    match result {
+        Ok(response) => {
+            let data: Response = serde_json::from_str(response.as_str()).unwrap();
+
+            Ok(data.choices[0].message.content.clone())
+        }
+        Err(_) => {
+            println!("Error: Could not fetch response from OpenAI");
+            std::process::exit(1);
+        }
+    }
+}
+
 pub async fn generate_description(
     diff: &str,
     template: &str,
@@ -85,20 +137,9 @@ pub async fn generate_description(
     });
 
     let prompt = generate_prompt(diff, template);
-    let body = serde_json::json!({
-        "model": model,
-        "messages": [{ "role": "user", "content": prompt }],
-        "temperature": 0.7,
-        "top_p": 1,
-        "frequency_penalty": 0,
-        "presence_penalty": 0,
-        "max_tokens": MAX_TOKEN_LENGTH,
-    });
-
-    let url = "https://api.openai.com/v1/chat/completions".to_string();
-    let client = reqwest::Client::new();
-    let response = client
-        .post(url)
+    let body = create_payload(model, &prompt);
+    let response = reqwest::Client::new()
+        .post("https://api.openai.com/v1/chat/completions")
         .header(
             reqwest::header::AUTHORIZATION,
             format!("Bearer {}", api_key),

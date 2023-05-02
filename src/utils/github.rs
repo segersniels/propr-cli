@@ -40,31 +40,16 @@ pub fn get_current_branch() -> String {
     String::from_utf8(output.stdout).unwrap().trim().to_owned()
 }
 
-fn get_merge_base_commit_id(branch: &str) -> String {
-    let merge_output = execute_command("git", &["merge-base", "HEAD^", branch]);
+pub fn get_default_branch() -> String {
+    let output = execute_command("git", &["remote", "show", "origin"]);
+    let stdout = String::from_utf8(output.stdout).expect("stdout is not valid UTF-8");
 
-    String::from_utf8(merge_output.stdout)
-        .unwrap()
-        .trim()
-        .to_owned()
-}
-
-pub fn get_base_branch(branch: &str) -> String {
-    let commit_id = get_merge_base_commit_id(branch);
-    let output = execute_command("git", &["branch", "--contains", &commit_id]);
-
-    match String::from_utf8(output.stdout) {
-        Ok(base_branch) => base_branch
-            .lines()
-            .find(|line| !line.contains('*') && !line.trim().is_empty())
-            .expect("could not find base branch")
-            .trim()
-            .to_owned(),
-        Err(_) => {
-            println!("Could not determine base branch");
-            process::exit(0);
-        }
-    }
+    stdout
+        .lines()
+        .find(|line| line.starts_with("  HEAD branch:"))
+        .and_then(|line| line.split(": ").nth(1))
+        .expect("could not find default branch")
+        .to_string()
 }
 
 pub fn get_diff() -> String {

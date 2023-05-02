@@ -10,7 +10,6 @@ pub async fn run() {
         process::exit(0);
     });
 
-    let title = prompt::ask_with_input("Provide a title");
     let octocrab = Octocrab::builder()
         .personal_token(token)
         .build()
@@ -19,8 +18,8 @@ pub async fn run() {
             process::exit(1);
         });
 
-    let branch = github::get_current_branch();
-    let base = github::get_base_branch(&branch);
+    let head = github::get_current_branch();
+    let base = github::get_default_branch();
     let (repo_name, owner) = github::get_repo_name_and_owner();
     let diff = github::get_diff();
 
@@ -52,9 +51,14 @@ pub async fn run() {
         }
     }
 
+    let title = openai::generate_title(&body).await.unwrap_or_else(|err| {
+        println!("{}", err);
+        process::exit(1);
+    });
+
     let result = octocrab
         .pulls(owner, repo_name)
-        .create(title, &branch, &base)
+        .create(&title, &head, &base)
         .body(&body)
         .send()
         .await;
