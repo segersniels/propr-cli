@@ -10,6 +10,7 @@ pub async fn run() {
         process::exit(0);
     });
 
+    let title = prompt::ask_with_input("Provide a title");
     let octocrab = Octocrab::builder()
         .personal_token(token)
         .build()
@@ -51,7 +52,6 @@ pub async fn run() {
         }
     }
 
-    let title = prompt::ask_with_input("Provide a title");
     let result = octocrab
         .pulls(owner, repo_name)
         .create(title, &branch, &base)
