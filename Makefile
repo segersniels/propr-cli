@@ -23,4 +23,5 @@ version:
 
 changelog:
 	./scripts/generate-tags.sh
+	rm CHANGELOG.md
 	gitmoji-changelog . -o CHANGELOG.md
