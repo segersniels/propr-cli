@@ -1,4 +1,4 @@
-use dialoguer::{Editor, Select};
+use dialoguer::{Editor, Input, Select};
 
 pub fn ask_with_editor(placeholder: &str) -> String {
     match Editor::new().edit(placeholder).unwrap() {
@@ -16,4 +16,8 @@ pub fn ask_with_prompt(choices: Vec<&str>, message: &str, _default: &str) -> Str
         .unwrap();
 
     choices[choice].to_string()
+}
+
+pub fn ask_with_input(message: &str) -> String {
+    Input::new().with_prompt(message).interact().unwrap()
 }
