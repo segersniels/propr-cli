@@ -13,7 +13,7 @@ pub async fn run() {
     let config = config::load();
     match openai::generate_description(&diff, &config.template, &config.model).await {
         Ok(description) => {
-            loader.stop_with_message("✅ Generated description\n".into());
+            loader.stop_with_message("✅ Done\n".into());
             println!("{}", description);
         }
         Err(e) => {

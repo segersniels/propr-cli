@@ -52,7 +52,7 @@ pub async fn run() {
                 println!("{}", err);
                 process::exit(1);
             });
-        loader.stop_with_message("✅ Generated description\n".into());
+        loader.stop_with_message("✅ Done\n".into());
 
         // Print the description
         println!("{}\n", description);
