@@ -3,6 +3,18 @@
 <a name="propr@0.1.0" data-comment="this line is used by gitmoji-changelog, don't remove it!"></a>
 ## Version propr@0.1.0
 
+<a name="0.3.1" data-comment="this line is used by gitmoji-changelog, don't remove it!"></a>
+## Version 0.3.1
+
+### Changed
+- 🔨  Remove changelog before updating
+
+### Fixed
+- 🐛  Fix error handling in create command
+
+### Miscellaneous
+- 📝  Update CHANGELOG
+
 <a name="0.3.0" data-comment="this line is used by gitmoji-changelog, don't remove it!"></a>
 ## Version 0.3.0
 
