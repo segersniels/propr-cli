@@ -1,5 +1,25 @@
 # Changelog
 
+
+
+<a name="propr@0.1.0" data-comment="this line is used by gitmoji-changelog, don't remove it!"></a>
+## Version propr@0.1.0
+
+<a name="0.2.0" data-comment="this line is used by gitmoji-changelog, don't remove it!"></a>
+## Version 0.2.0
+
+### Added
+- ✨  Add option to configure model to use
+
+### Changed
+- 🔨  Add some extra optims to improve binary
+- 🔨  Apparantly awk doesn't work as expected in make
+- 🔨  Make sure we extract correct version
+- ♻️  Use confy for everything, drop the custom config stuff
+
+### Miscellaneous
+- 📝  Update CHANGELOG
+
 <a name="0.1.0" data-comment="this line is used by gitmoji-changelog, don't remove it!"></a>
 ## Version 0.1.0
 
