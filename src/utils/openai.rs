@@ -44,8 +44,6 @@ fn generate_prompt(diff: &str, template: &str) -> String {
         The PR description should be a good summary of the changes made.
         Do not reference each file and function added but rather give a general explanation of the changes made.
         Do not treat imports and requires as changes or new features.
-        You can leave out the entire heading of the template if no applicable changes are found.
-
         The PR description should be structured as follows: \"\"\"
         {}
         \"\"\"
