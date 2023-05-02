@@ -1,4 +1,4 @@
-use dialoguer::{Editor, Input, Select};
+use dialoguer::{Confirm, Editor, Input, Select};
 
 pub fn ask_with_editor(placeholder: &str) -> String {
     match Editor::new().edit(placeholder).unwrap() {
@@ -20,4 +20,8 @@ pub fn ask_with_prompt(choices: Vec<&str>, message: &str, _default: &str) -> Str
 
 pub fn ask_with_input(message: &str) -> String {
     Input::new().with_prompt(message).interact().unwrap()
+}
+
+pub fn ask_for_confirmation(message: &str) -> bool {
+    Confirm::new().with_prompt(message).interact().unwrap()
 }
