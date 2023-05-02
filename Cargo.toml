@@ -14,6 +14,7 @@ repository = "https://github.com/segersniels/propr-cli/"
 
 [dependencies]
 clap = "4.2.5"
+confy = "0.5.1"
 dialoguer = "0.10.4"
 dirs = "5.0.1"
 octocrab = "0.21.0"

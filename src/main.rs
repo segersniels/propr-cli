@@ -36,7 +36,8 @@ fn cli() -> Command {
                 .subcommand(Command::new("template").about(format!(
                     "Adjust the template used by propr at `{}`",
                     utils::config::get_file_path().to_string_lossy()
-                ))),
+                )))
+                .subcommand(Command::new("model").about("Adjust the model used by propr")),
         )
 }
 
