@@ -12,7 +12,7 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - run: rustup component add clippy
       - uses: actions-rs/clippy-check@v1
         with:
@@ -28,7 +28,7 @@ jobs:
           - { target: x86_64-apple-darwin, exe: macos, os: macos-latest }
     runs-on: ${{ matrix.job.os }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: actions-rs/toolchain@v1
         with:
           profile: minimal
@@ -46,7 +46,27 @@ jobs:
           rm target/${{ matrix.job.target }}/release/propr.d
           cp target/${{ matrix.job.target }}/release/propr* propr-${{ matrix.job.exe }}
       - name: Archive production artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: bin
           path: propr-${{ matrix.job.exe }}
+
+  release:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/download-artifact@v3
+        with:
+          name: bin
+          path: bin
+      - name: Get current package version
+        id: current_version
+        run: echo "version=$(make version)" >> $GITHUB_OUTPUT
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "${{ steps.current_version.outputs.version }}"
+          prerelease: false
+          files: |
+            ./bin/propr-macos
