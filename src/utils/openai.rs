@@ -34,6 +34,7 @@ fn remove_lock_files(chunks: Vec<String>) -> Vec<String> {
         .collect()
 }
 
+/// Split the diff in chunks and remove any lock files to save on tokens
 fn prepare_diff(diff: &str) -> String {
     let chunks = split_diff_into_chunks(diff);
     remove_lock_files(chunks).join("\n")
@@ -84,6 +85,7 @@ fn create_payload(model: &str, prompt: &str) -> serde_json::Value {
     })
 }
 
+/// Perform a completion request to the OpenAI API
 async fn get_chat_completion(body: String) -> Result<String, Error> {
     let api_key = std::env::var("OPENAI_API_KEY").unwrap_or_else(|_| {
         println!("Error: OPENAI_API_KEY environment variable not set");
@@ -115,6 +117,7 @@ async fn get_chat_completion(body: String) -> Result<String, Error> {
     }
 }
 
+/// Generate a concise PR title
 pub async fn generate_title(description: &str) -> Result<String, Error> {
     let prompt = format!("Generate a concise PR title from the provided description prefixed with a suitable gitmoji.
         \"\"\"
@@ -123,11 +126,17 @@ pub async fn generate_title(description: &str) -> Result<String, Error> {
         ",
         description,
     );
+
+    /*
+    Generate the title using gpt-3.5-turbo since it is the fastest model
+    and we don't want to spend too many tokens on this
+    */
     let body = create_payload("gpt-3.5-turbo", &prompt);
 
     get_chat_completion(serde_json::to_string(&body).unwrap()).await
 }
 
+/// Generate a concise PR description
 pub async fn generate_description(
     diff: &str,
     template: &str,
