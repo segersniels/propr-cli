@@ -1,5 +1,18 @@
 # Changelog
 
+<a name="0.5.0" data-comment="this line is used by gitmoji-changelog, don't remove it!"></a>
+## Version 0.5.0
+
+### Added
+- ✨  Add option to configure automatic PR title generation
+
+### Changed
+- 🚨  Fix linting
+- 🎨  Clean up for readability
+
+### Miscellaneous
+- 📝  Update CHANGELOG
+
 <a name="0.4.0" data-comment="this line is used by gitmoji-changelog, don't remove it!"></a>
 ## Version 0.4.0
 
