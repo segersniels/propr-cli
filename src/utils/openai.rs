@@ -77,18 +77,12 @@ struct Response {
 pub async fn generate_description(
     diff: &str,
     template: &str,
-    use_latest_model: bool,
+    model: &str,
 ) -> Result<String, Error> {
     let api_key = std::env::var("OPENAI_API_KEY").unwrap_or_else(|_| {
         println!("Error: OPENAI_API_KEY environment variable not set");
         process::exit(0);
     });
-
-    let model = if use_latest_model {
-        "gpt-4"
-    } else {
-        "gpt-3.5-turbo"
-    };
 
     let prompt = generate_prompt(diff, template);
     let body = serde_json::json!({

@@ -7,7 +7,7 @@ pub fn ask_with_editor(placeholder: &str) -> String {
     }
 }
 
-pub fn ask_with_prompt(choices: Vec<&str>, message: &str, default: &str) -> String {
+pub fn ask_with_prompt(choices: Vec<&str>, message: &str, _default: &str) -> String {
     let choice = Select::new()
         .with_prompt(message)
         .default(0)
