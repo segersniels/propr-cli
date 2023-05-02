@@ -2,16 +2,19 @@ use serde::{Deserialize, Serialize};
 use std::process;
 
 #[derive(Debug, Serialize, Deserialize)]
+#[serde(default)]
 pub struct Config {
     pub model: String,
     pub template: String,
+    pub generate_title: bool,
 }
 
-impl ::std::default::Default for Config {
+impl Default for Config {
     fn default() -> Self {
         Self {
             model: "gpt-3.5-turbo".into(),
             template: r#"# Description"#.into(),
+            generate_title: false,
         }
     }
 }

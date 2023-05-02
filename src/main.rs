@@ -17,6 +17,7 @@ fn cli() -> Command {
                 .arg_required_else_help(true)
                 .subcommand(Command::new("template").about("Adjust the template used by propr"))
                 .subcommand(Command::new("model").about("Adjust the model used by propr"))
+                .subcommand(Command::new("generate-title").about("Configure whether to generate a title or not"))
                 .subcommand(Command::new("list").about("List the current configuration")),
         )
 }
