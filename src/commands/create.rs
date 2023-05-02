@@ -54,7 +54,12 @@ pub async fn run() {
             octocrab::Error::GitHub { source, .. } => {
                 match source.errors {
                     Some(errors) => {
-                        println!("{}", errors[0]["message"].as_str().unwrap());
+                        let message = errors[0]["message"].as_str().unwrap_or_else(|| {
+                            println!("{:?}", errors);
+                            process::exit(1);
+                        });
+
+                        println!("{}", message);
                     }
                     None => {
                         println!("{}", source);
