@@ -4,7 +4,6 @@ clean:
 	cargo clean
 
 build: clean
-	export RUSTFLAGS="-C target-feature=+crt-static"
 	cargo build --release
 
 dev:
