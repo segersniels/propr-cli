@@ -19,7 +19,7 @@ lint-fix:
 	cargo fmt
 
 version:
-	@cargo pkgid | awk -F '[@#]' '{print $NF}'
+	@cargo pkgid | sed 's/.*[@#]\(.*\)/\1/'
 
 changelog:
 	./scripts/generate-tags.sh
