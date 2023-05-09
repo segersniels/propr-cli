@@ -1,4 +1,5 @@
 use clap::{self, Command};
+use human_panic::setup_panic;
 
 mod commands;
 mod utils;
@@ -27,6 +28,8 @@ fn cli() -> Command {
 
 #[tokio::main]
 async fn main() {
+    setup_panic!();
+
     let matches = cli().get_matches();
     match matches.subcommand() {
         Some(("create", _sub_matches)) => commands::create::run().await,
