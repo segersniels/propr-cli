@@ -1,5 +1,30 @@
 # Changelog
 
+<a name="propr@0.1.0" data-comment="this line is used by gitmoji-changelog, don't remove it!"></a>
+## Version propr@0.1.0
+
+<a name="0.6.0" data-comment="this line is used by gitmoji-changelog, don't remove it!"></a>
+## Version 0.6.0
+
+### Added
+- ✨  Introduce human readable panic message
+- ➕  Add human_panic
+- 👷  Update GitHub Actions workflows and improve release process
+
+### Changed
+- ⬆️  Bump deps
+- ♻️  Refactor loader messages and spinner style
+
+### Removed
+- 🔥  Remove as it is being ignored anyway
+
+### Fixed
+- 💚  Release needs build
+
+### Miscellaneous
+- 💡  Add some descriptive comments
+- 📝  Update CHANGELOG
+
 <a name="0.5.0" data-comment="this line is used by gitmoji-changelog, don't remove it!"></a>
 ## Version 0.5.0
 
