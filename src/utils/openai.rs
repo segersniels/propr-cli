@@ -69,8 +69,14 @@ struct Choice {
 }
 
 #[derive(Deserialize, Debug)]
+struct ResponseError {
+    message: String,
+}
+
+#[derive(Deserialize, Debug)]
 struct Response {
-    choices: [Choice; 1],
+    choices: Option<[Choice; 1]>,
+    error: Option<ResponseError>,
 }
 
 fn create_payload(model: &str, prompt: &str) -> serde_json::Value {
@@ -108,7 +114,17 @@ async fn get_chat_completion(body: String) -> Result<String, Error> {
         Ok(response) => {
             let data: Response = serde_json::from_str(response.as_str()).unwrap();
 
-            Ok(data.choices[0].message.content.clone())
+            if data.error.is_some() {
+                println!("Error: {}", data.error.unwrap().message);
+                std::process::exit(1);
+            }
+
+            if let Some(choice) = data.choices {
+                Ok(choice[0].message.content.clone())
+            } else {
+                println!("Error: {}", response.as_str());
+                std::process::exit(1);
+            }
         }
         Err(_) => {
             println!("Error: Could not fetch response from OpenAI");
