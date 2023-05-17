@@ -3,6 +3,18 @@
 <a name="propr@0.1.0" data-comment="this line is used by gitmoji-changelog, don't remove it!"></a>
 ## Version propr@0.1.0
 
+<a name="0.6.1" data-comment="this line is used by gitmoji-changelog, don't remove it!"></a>
+## Version 0.6.1
+
+### Added
+- 👷  Update rust version used when building
+
+### Fixed
+- 🐛  Fetch diff in comparison with origin not local HEAD
+
+### Miscellaneous
+- 📝  Update CHANGELOG
+
 <a name="0.6.0" data-comment="this line is used by gitmoji-changelog, don't remove it!"></a>
 ## Version 0.6.0
 
