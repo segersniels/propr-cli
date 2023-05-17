@@ -71,6 +71,7 @@ struct Choice {
 #[derive(Deserialize, Debug)]
 struct ResponseError {
     message: String,
+    code: String,
 }
 
 #[derive(Deserialize, Debug)]
@@ -115,8 +116,18 @@ async fn get_chat_completion(body: String) -> Result<String, Error> {
             let data: Response = serde_json::from_str(response.as_str()).unwrap();
 
             if data.error.is_some() {
-                println!("Error: {}", data.error.unwrap().message);
-                std::process::exit(1);
+                let error = data.error.unwrap();
+
+                match error.code.as_str() {
+                    "context_length_exceeded" => {
+                        println!("Error: The provided diff is too large. Try using a different model that supports a higher token count or reduce the size of the diff.");
+                        std::process::exit(1);
+                    }
+                    _ => {
+                        println!("Error: {}", error.message);
+                        std::process::exit(1);
+                    }
+                }
             }
 
             if let Some(choice) = data.choices {
