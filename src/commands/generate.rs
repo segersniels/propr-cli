@@ -1,9 +1,16 @@
 use std::process;
 
+use clap::ArgMatches;
+
 use crate::utils::{config, github, loader, openai};
 
-pub async fn run() {
-    let diff = github::get_diff();
+pub async fn run(sub_matches: &ArgMatches) {
+    let default_branch = github::get_default_branch();
+    let base = sub_matches
+        .get_one::<String>("branch")
+        .unwrap_or(&default_branch);
+
+    let diff = github::get_diff(base);
     if diff.is_empty() {
         println!("No diff found");
         return;
