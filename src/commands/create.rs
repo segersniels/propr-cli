@@ -1,5 +1,6 @@
-use std::process;
+use std::{default, process};
 
+use clap::ArgMatches;
 use octocrab::Octocrab;
 
 use crate::utils::{config, github, loader, openai, prompt};
@@ -18,7 +19,7 @@ async fn get_title(body: &str) -> String {
     }
 }
 
-pub async fn run() {
+pub async fn run(sub_matches: &ArgMatches) {
     let token = std::env::var("GITHUB_TOKEN").unwrap_or_else(|_| {
         println!("Error: GITHUB_TOKEN environment variable not set");
         process::exit(0);
@@ -34,9 +35,13 @@ pub async fn run() {
         });
 
     let head = github::get_current_branch();
-    let base = github::get_default_branch();
+    let default_branch = github::get_default_branch();
+    let base = sub_matches
+        .get_one::<String>("branch")
+        .unwrap_or(&default_branch);
+
     let (repo_name, owner) = github::get_repo_name_and_owner();
-    let diff = github::get_diff();
+    let diff = github::get_diff(base);
 
     if diff.is_empty() {
         println!("Error: No diff found");
@@ -68,7 +73,7 @@ pub async fn run() {
     let title = get_title(&body).await;
     let result = octocrab
         .pulls(owner, repo_name)
-        .create(&title, &head, &base)
+        .create(&title, &head, base)
         .body(&body)
         .send()
         .await;

@@ -1,4 +1,4 @@
-use clap::{self, Command};
+use clap::{self, ArgAction, Command};
 use human_panic::setup_panic;
 
 mod commands;
@@ -10,8 +10,28 @@ fn cli() -> Command {
         .version(env!("CARGO_PKG_VERSION"))
         .subcommand_required(true)
         .arg_required_else_help(true)
-        .subcommand(Command::new("create").about("Creates a PR with a generated description"))
-        .subcommand(Command::new("generate").about("Generates a PR description and outputs it"))
+        .subcommand(
+            Command::new("create")
+                .about("Creates a PR with a generated description")
+                .arg(
+                    clap::Arg::new("branch")
+                        .short('b')
+                        .long("branch")
+                        .help("The base branch to point your changes to")
+                        .action(ArgAction::Set),
+                ),
+        )
+        .subcommand(
+            Command::new("generate")
+                .about("Generates a PR description and outputs it")
+                .arg(
+                    clap::Arg::new("branch")
+                        .short('b')
+                        .long("branch")
+                        .help("The base branch to point your changes to")
+                        .action(ArgAction::Set),
+                ),
+        )
         .subcommand(
             Command::new("config")
                 .about("Configure propr to your liking")
@@ -32,8 +52,8 @@ async fn main() {
 
     let matches = cli().get_matches();
     match matches.subcommand() {
-        Some(("create", _sub_matches)) => commands::create::run().await,
-        Some(("generate", _sub_matches)) => commands::generate::run().await,
+        Some(("create", sub_matches)) => commands::create::run(sub_matches).await,
+        Some(("generate", sub_matches)) => commands::generate::run(sub_matches).await,
         Some(("config", sub_matches)) => commands::config::run(sub_matches),
         _ => unreachable!(),
     }

@@ -52,8 +52,8 @@ pub fn get_default_branch() -> String {
         .to_string()
 }
 
-pub fn get_diff() -> String {
-    let output = execute_command("git", &["diff", "origin/HEAD"]);
+pub fn get_diff(base_branch: &str) -> String {
+    let output = execute_command("git", &["diff", base_branch]);
 
     String::from_utf8(output.stdout).unwrap().trim().to_owned()
 }
