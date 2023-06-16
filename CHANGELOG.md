@@ -1,5 +1,14 @@
 # Changelog
 
+<a name="0.8.0" data-comment="this line is used by gitmoji-changelog, don't remove it!"></a>
+## Version 0.8.0
+
+### Added
+- ✨  Add more model options
+
+### Miscellaneous
+- 📝  Update CHANGELOG
+
 <a name="0.7.0" data-comment="this line is used by gitmoji-changelog, don't remove it!"></a>
 ## Version 0.7.0
 
