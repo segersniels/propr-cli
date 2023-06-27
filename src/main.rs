@@ -39,6 +39,14 @@ fn cli() -> Command {
                         .long("branch")
                         .help("The base branch to point your changes to")
                         .action(ArgAction::Set),
+                )
+                .arg(
+                    clap::Arg::new("model")
+                        .short('m')
+                        .long("model")
+                        .help("Instructs propr to use a specific model")
+                        .value_parser(ALLOWED_MODELS)
+                        .action(ArgAction::Set),
                 ),
         )
         .subcommand(

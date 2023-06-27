@@ -16,9 +16,12 @@ pub async fn run(sub_matches: &ArgMatches) {
         return;
     }
 
-    let mut loader = loader::create_loader("Generating");
     let config = config::load();
-    match openai::generate_description(&diff, &config.template, &config.model).await {
+    let mut loader = loader::create_loader("Generating");
+    let model = sub_matches
+        .get_one::<String>("model")
+        .unwrap_or(&config.model);
+    match openai::generate_description(&diff, &config.template, model).await {
         Ok(description) => {
             loader.stop_with_message("✅ Done\n".into());
             println!("{}", description);
