@@ -1,6 +1,6 @@
 use clap::ArgMatches;
 
-use crate::utils::{config, prompt};
+use crate::utils::{config, prompt, openai::ALLOWED_MODELS};
 
 pub fn run(sub_matches: &ArgMatches) {
     let mut config = config::load();
@@ -18,7 +18,7 @@ pub fn run(sub_matches: &ArgMatches) {
         }
         Some(("model", _sub_matches)) => {
             config.model = prompt::ask_with_prompt(
-                vec!["gpt-3.5-turbo", "gpt-3.5-turbo-16k", "gpt-4", "gpt-4-32k"],
+                ALLOWED_MODELS.to_vec(),
                 &format!("Select the model to use (current: {})", &config.model),
             );
 

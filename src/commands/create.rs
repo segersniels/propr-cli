@@ -1,4 +1,4 @@
-use std::{default, process};
+use std::{process};
 
 use clap::ArgMatches;
 use octocrab::Octocrab;
@@ -51,7 +51,10 @@ pub async fn run(sub_matches: &ArgMatches) {
     let mut body = String::new();
     while body.is_empty() {
         let mut loader = loader::create_loader("Generating");
-        let description = openai::generate_description(&diff, &config.template, &config.model)
+        let model = sub_matches
+            .get_one::<String>("model")
+            .unwrap_or(&config.model);
+        let description = openai::generate_description(&diff, &config.template, model)
             .await
             .unwrap_or_else(|err| {
                 println!("{}", err);

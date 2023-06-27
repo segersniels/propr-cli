@@ -1,5 +1,6 @@
 use clap::{self, ArgAction, Command};
 use human_panic::setup_panic;
+use utils::openai::ALLOWED_MODELS;
 
 mod commands;
 mod utils;
@@ -18,6 +19,14 @@ fn cli() -> Command {
                         .short('b')
                         .long("branch")
                         .help("The base branch to point your changes to")
+                        .action(ArgAction::Set),
+                )
+                .arg(
+                    clap::Arg::new("model")
+                        .short('m')
+                        .long("model")
+                        .help("Instructs propr to use a specific model")
+                        .value_parser(ALLOWED_MODELS)
                         .action(ArgAction::Set),
                 ),
         )

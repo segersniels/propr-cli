@@ -2,6 +2,7 @@ use reqwest::Error;
 use serde::Deserialize;
 use std::process;
 
+pub const ALLOWED_MODELS: [&str; 4] = ["gpt-3.5-turbo", "gpt-3.5-turbo-16k", "gpt-4", "gpt-4-32k"];
 const MAX_TOKEN_LENGTH: i32 = 500;
 const FILES_TO_IGNORE: [&str; 11] = [
     "package-lock.json",
