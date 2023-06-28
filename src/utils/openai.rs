@@ -41,7 +41,7 @@ fn prepare_diff(diff: &str) -> String {
     remove_lock_files(chunks).join("\n")
 }
 
-fn generate_context(template: &str) -> String {
+fn generate_system_message_for_diff(template: &str) -> String {
     format!("Given the git diff below, please create a concise GitHub PR description using the provided template.
         Analyze the code changes and provide a detailed yet concise explanation of the changes, their context,
         why they were made, and their potential impact. If a section from the template does not apply
@@ -78,11 +78,11 @@ struct Response {
     error: Option<ResponseError>,
 }
 
-fn create_payload(model: &str, context: &str, content: &str) -> serde_json::Value {
+fn create_payload(model: &str, system_message: &str, content: &str) -> serde_json::Value {
     serde_json::json!({
         "model": model,
         "messages": [
-            { "role": "system", "content": context },
+            { "role": "system", "content": system_message },
             { "role": "user", "content": content }
         ],
         "temperature": 0.7,
@@ -147,13 +147,13 @@ async fn get_chat_completion(body: &serde_json::Value) -> Result<String, Error> 
 
 /// Generate a concise PR title
 pub async fn generate_title(description: &str) -> Result<String, Error> {
-    let context = "Generate a concise PR title from the provided description prefixed with a suitable gitmoji";
+    let system_message = "Generate a concise PR title from the provided description prefixed with a suitable gitmoji";
 
     /*
     Generate the title using gpt-3.5-turbo since it is the fastest model
     and we don't want to spend too many tokens on this
     */
-    let body = create_payload("gpt-3.5-turbo", context, description);
+    let body = create_payload("gpt-3.5-turbo", system_message, description);
 
     get_chat_completion(&body).await
 }
@@ -164,8 +164,8 @@ pub async fn generate_description(
     template: &str,
     model: &str,
 ) -> Result<String, Error> {
-    let context = generate_context(template);
-    let body = create_payload(model, &context, &prepare_diff(diff));
+    let system_message = generate_system_message_for_diff(template);
+    let body = create_payload(model, &system_message, &prepare_diff(diff));
 
     get_chat_completion(&body).await
 }
