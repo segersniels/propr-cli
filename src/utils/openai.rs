@@ -41,23 +41,18 @@ fn prepare_diff(diff: &str) -> String {
     remove_lock_files(chunks).join("\n")
 }
 
-fn generate_prompt(diff: &str, template: &str) -> String {
-    format!("Given the git diff below, please create a descriptive GitHub pull request using the provided template.
+fn generate_context(template: &str) -> String {
+    format!("Given the git diff below, please create a concise GitHub PR description using the provided template.
         Analyze the code changes and provide a detailed yet concise explanation of the changes, their context,
         why they were made, and their potential impact. If a section from the template does not apply
         (no significant changes in that category), omit that section from your final output.
-        Avoid referencing file names directly, instead focus on explaining the changes in a broader context
+        Avoid referencing file names directly, instead focus on explaining the changes in a broader context.
 
         The template: \"\"\"
         {}
         \"\"\"
-
-        The diff: \"\"\"
-        {}
-        \"\"\"
-        ",
-        template,
-        prepare_diff(diff)
+    ",
+    template,
     )
 }
 
@@ -83,10 +78,13 @@ struct Response {
     error: Option<ResponseError>,
 }
 
-fn create_payload(model: &str, prompt: &str) -> serde_json::Value {
+fn create_payload(model: &str, context: &str, content: &str) -> serde_json::Value {
     serde_json::json!({
         "model": model,
-        "messages": [{ "role": "user", "content": prompt }],
+        "messages": [
+            { "role": "system", "content": context },
+            { "role": "user", "content": content }
+        ],
         "temperature": 0.7,
         "top_p": 1,
         "frequency_penalty": 0,
@@ -113,7 +111,7 @@ async fn get_chat_completion(body: String) -> Result<String, Error> {
         .send()
         .await?;
 
-    let result = response.text().await;
+    let result: Result<String, Error> = response.text().await;
     match result {
         Ok(response) => {
             let data: Response = serde_json::from_str(response.as_str()).unwrap();
@@ -149,19 +147,13 @@ async fn get_chat_completion(body: String) -> Result<String, Error> {
 
 /// Generate a concise PR title
 pub async fn generate_title(description: &str) -> Result<String, Error> {
-    let prompt = format!("Generate a concise PR title from the provided description prefixed with a suitable gitmoji.
-        \"\"\"
-        {}
-        \"\"\"
-        ",
-        description,
-    );
+    let context = "Generate a concise PR title from the provided description prefixed with a suitable gitmoji";
 
     /*
     Generate the title using gpt-3.5-turbo since it is the fastest model
     and we don't want to spend too many tokens on this
     */
-    let body = create_payload("gpt-3.5-turbo", &prompt);
+    let body = create_payload("gpt-3.5-turbo", context, description);
 
     get_chat_completion(serde_json::to_string(&body).unwrap()).await
 }
@@ -172,8 +164,8 @@ pub async fn generate_description(
     template: &str,
     model: &str,
 ) -> Result<String, Error> {
-    let prompt = generate_prompt(diff, template);
-    let body = create_payload(model, &prompt);
+    let context = generate_context(template);
+    let body = create_payload(model, &context, &prepare_diff(diff));
 
     get_chat_completion(serde_json::to_string(&body).unwrap()).await
 }

@@ -1,4 +1,4 @@
-use std::{process};
+use std::process;
 
 use clap::ArgMatches;
 use octocrab::Octocrab;

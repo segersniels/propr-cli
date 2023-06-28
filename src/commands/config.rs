@@ -1,6 +1,6 @@
 use clap::ArgMatches;
 
-use crate::utils::{config, prompt, openai::ALLOWED_MODELS};
+use crate::utils::{config, openai::ALLOWED_MODELS, prompt};
 
 pub fn run(sub_matches: &ArgMatches) {
     let mut config = config::load();
