@@ -94,7 +94,7 @@ fn create_payload(model: &str, context: &str, content: &str) -> serde_json::Valu
 }
 
 /// Perform a completion request to the OpenAI API
-async fn get_chat_completion(body: String) -> Result<String, Error> {
+async fn get_chat_completion(body: &serde_json::Value) -> Result<String, Error> {
     let api_key = std::env::var("OPENAI_API_KEY").unwrap_or_else(|_| {
         println!("Error: OPENAI_API_KEY environment variable not set");
         process::exit(0);
@@ -107,7 +107,7 @@ async fn get_chat_completion(body: String) -> Result<String, Error> {
             format!("Bearer {}", api_key),
         )
         .header(reqwest::header::CONTENT_TYPE, "application/json")
-        .body(body)
+        .body(serde_json::to_string(body).unwrap())
         .send()
         .await?;
 
@@ -155,7 +155,7 @@ pub async fn generate_title(description: &str) -> Result<String, Error> {
     */
     let body = create_payload("gpt-3.5-turbo", context, description);
 
-    get_chat_completion(serde_json::to_string(&body).unwrap()).await
+    get_chat_completion(&body).await
 }
 
 /// Generate a concise PR description
@@ -167,5 +167,5 @@ pub async fn generate_description(
     let context = generate_context(template);
     let body = create_payload(model, &context, &prepare_diff(diff));
 
-    get_chat_completion(serde_json::to_string(&body).unwrap()).await
+    get_chat_completion(&body).await
 }
