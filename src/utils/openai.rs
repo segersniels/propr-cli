@@ -42,15 +42,17 @@ fn prepare_diff(diff: &str) -> String {
 }
 
 fn generate_prompt(diff: &str, template: &str) -> String {
-    format!("Generate a concise PR description from the provided git diff according to a provided template.
-        The PR description should be a good summary of the changes made.
-        Do not reference each file and function added but rather give a general explanation of the changes made.
-        Do not treat imports and requires as changes or new features.
-        The PR description should be structured as follows: \"\"\"
+    format!("Given the git diff below, please create a descriptive GitHub pull request using the provided template.
+        Analyze the code changes and provide a detailed yet concise explanation of the changes, their context,
+        why they were made, and their potential impact. If a section from the template does not apply
+        (no significant changes in that category), omit that section from your final output.
+        Avoid referencing file names directly, instead focus on explaining the changes in a broader context
+
+        The template: \"\"\"
         {}
         \"\"\"
 
-        Here is the diff: \"\"\"
+        The diff: \"\"\"
         {}
         \"\"\"
         ",
