@@ -42,17 +42,20 @@ fn prepare_diff(diff: &str) -> String {
 }
 
 fn generate_system_message_for_diff(template: &str) -> String {
-    format!("Given the git diff below, please create a concise GitHub PR description using the provided template.
-        Analyze the code changes and provide a detailed yet concise explanation of the changes, their context,
-        why they were made, and their potential impact. If a section from the template does not apply
-        (no significant changes in that category), omit that section from your final output.
-        Avoid referencing file names directly, instead focus on explaining the changes in a broader context.
+    format!(
+        r#"You will be asked to write a descriptive GitHub PR description based on a diff provided by a developer.
+        Analyze the code changes and provide a concise explanation of the changes, their context and why they were made.
+        Don't reference file names directly, instead focus on explaining the changes in a broader context.
+        Do not treat imports and requires as changes or new features.
 
-        The template: \"\"\"
+        Use the following template to write your description:
+        """
         {}
-        \"\"\"
-    ",
-    template,
+        """
+
+        If a section from the template does not apply (no significant changes in that category), omit that section from your final output.
+        "#,
+        template,
     )
 }
 
