@@ -43,7 +43,7 @@ fn prepare_diff(diff: &str) -> String {
 
 fn generate_system_message_for_diff(template: &str) -> String {
     format!(
-        r#"You will be asked to write a descriptive GitHub PR description based on a diff provided by a developer.
+        r#"You will be asked to write a descriptive GitHub PR description based on a provided git diff.
         Analyze the code changes and provide a concise explanation of the changes, their context and why they were made.
         Don't reference file names directly, instead focus on explaining the changes in a broader context.
         Do not treat imports and requires as changes or new features.
