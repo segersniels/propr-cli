@@ -1163,7 +1163,7 @@ dependencies = [
 
 [[package]]
 name = "propr"
-version = "0.9.3"
+version = "0.9.4"
 dependencies = [
  "clap",
  "confy",
