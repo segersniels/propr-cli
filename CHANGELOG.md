@@ -1,5 +1,14 @@
 # Changelog
 
+<a name="0.9.5" data-comment="this line is used by gitmoji-changelog, don't remove it!"></a>
+## Version 0.9.5
+
+### Removed
+- 🔥  Remove reference to developer since it sometimes gets mentioned in the response
+
+### Miscellaneous
+- 📝  Update CHANGELOG
+
 <a name="0.9.4" data-comment="this line is used by gitmoji-changelog, don't remove it!"></a>
 ## Version 0.9.4
 
