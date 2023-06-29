@@ -1,7 +1,11 @@
 # Changelog
 
-<a name="propr@0.1.0" data-comment="this line is used by gitmoji-changelog, don't remove it!"></a>
-## Version propr@0.1.0
+<a name="0.9.4" data-comment="this line is used by gitmoji-changelog, don't remove it!"></a>
+## Version 0.9.4
+
+### Miscellaneous
+- ⚗  Change the system message slightly to give better results
+- 📝  Update CHANGELOG
 
 <a name="0.9.3" data-comment="this line is used by gitmoji-changelog, don't remove it!"></a>
 ## Version 0.9.3
