@@ -55,3 +55,5 @@ Options:
   -m, --model <model>    Instructs propr to use a specific model [possible values: gpt-3.5-turbo, gpt-3.5-turbo-16k, gpt-4, gpt-4-32k]
   -h, --help             Print help
 ```
+
+You can regenerate a PR description at any time, even after the PR has already been created using `propr generate`.
