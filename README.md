@@ -57,3 +57,7 @@ Options:
 ```
 
 You can regenerate a PR description at any time, even after the PR has already been created using `propr generate`.
+
+#### Automatically generating a  title
+
+There is the option to allow `propr` to automatically generate a PR title based on the generated description. To enable this refer to `propr config generate-title`.
