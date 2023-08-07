@@ -52,5 +52,6 @@ Usage: propr create [OPTIONS]
 
 Options:
   -b, --branch <branch>  The base branch to point your changes to
+  -m, --model <model>    Instructs propr to use a specific model [possible values: gpt-3.5-turbo, gpt-3.5-turbo-16k, gpt-4, gpt-4-32k]
   -h, --help             Print help
 ```
