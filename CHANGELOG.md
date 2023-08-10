@@ -1,5 +1,17 @@
 # Changelog
 
+<a name="1.0.0" data-comment="this line is used by gitmoji-changelog, don't remove it!"></a>
+## Version 1.0.0
+
+### Changed
+- 🚸  Match the system message with propr.dev
+
+### Miscellaneous
+- 📝  Add info about generating the title
+- 📝  Give some information when to use generate
+- 📝  Update create usage
+- 📝  Update CHANGELOG
+
 <a name="0.9.5" data-comment="this line is used by gitmoji-changelog, don't remove it!"></a>
 ## Version 0.9.5
 
