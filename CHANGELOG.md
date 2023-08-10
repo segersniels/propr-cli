@@ -1,5 +1,14 @@
 # Changelog
 
+<a name="1.0.1" data-comment="this line is used by gitmoji-changelog, don't remove it!"></a>
+## Version 1.0.1
+
+### Changed
+- 🔧  Slightly improve compile speed
+
+### Miscellaneous
+- 📝  Update CHANGELOG
+
 <a name="1.0.0" data-comment="this line is used by gitmoji-changelog, don't remove it!"></a>
 ## Version 1.0.0
 
