@@ -72,7 +72,7 @@ jobs:
             ./bin/propr-macos
 
   publish:
-    needs: build
+    needs: release
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/master'
     environment: production
