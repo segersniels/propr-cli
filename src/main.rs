@@ -59,7 +59,11 @@ fn cli() -> Command {
                     Command::new("generate-title")
                         .about("Configure whether to generate a title or not"),
                 )
-                .subcommand(Command::new("list").about("List the current configuration")),
+                .subcommand(
+                    Command::new("list")
+                        .alias("ls")
+                        .about("List the current configuration"),
+                ),
         )
 }
 
