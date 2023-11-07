@@ -1,5 +1,27 @@
 # Changelog
 
+<a name="propr@0.1.0" data-comment="this line is used by gitmoji-changelog, don't remove it!"></a>
+## Version propr@0.1.0
+
+<a name="1.2.0" data-comment="this line is used by gitmoji-changelog, don't remove it!"></a>
+## Version 1.2.0
+
+### Added
+- ✨  Add gpt-4-turbo preview
+- 👷  Combine into one workflow
+
+### Fixed
+- 💚  Make sure we dont publish without releasing
+
+<a name="1.1.0" data-comment="this line is used by gitmoji-changelog, don't remove it!"></a>
+## Version 1.1.0
+
+### Added
+- ✨  Add alias for list
+
+### Miscellaneous
+- 📝  Update CHANGELOG
+
 <a name="1.0.1" data-comment="this line is used by gitmoji-changelog, don't remove it!"></a>
 ## Version 1.0.1
 
