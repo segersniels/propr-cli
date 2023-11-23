@@ -54,14 +54,13 @@ fn generate_system_message_for_diff(template: &str) -> String {
         Analyze the code changes and provide a concise explanation of the changes, their context and why they were made.
         Don't reference file names or directories directly, instead give a general explanation of the changes made.
         Do not treat imports and requires as changes or new features.
-        The PR description should be a good summary of the changes made.
 
         Use the following template to write your description:
         """
         {}
         """
 
-        If a section from the template does not apply (no significant changes in that category), omit that section from your final output.
+        If you can't determine changes for a specific section in the template just omit that section out entirely.
         If the provided message is not a diff respond with an appropriate message.
         "#,
         template,
