@@ -3,6 +3,15 @@
 <a name="propr@0.1.0" data-comment="this line is used by gitmoji-changelog, don't remove it!"></a>
 ## Version propr@0.1.0
 
+<a name="1.2.1" data-comment="this line is used by gitmoji-changelog, don't remove it!"></a>
+## Version 1.2.1
+
+### Changed
+- 🚸  See if this improves the output
+
+### Miscellaneous
+- 📝  Update CHANGELOG
+
 <a name="1.2.0" data-comment="this line is used by gitmoji-changelog, don't remove it!"></a>
 ## Version 1.2.0
 
