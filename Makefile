@@ -21,6 +21,4 @@ version:
 	@cargo pkgid | sed 's/.*[@#]\(.*\)/\1/'
 
 changelog:
-	./scripts/generate-tags.sh
-	rm CHANGELOG.md
-	gitmoji-changelog . -o CHANGELOG.md
+	npx gitmoji-changelog --preset cargo
