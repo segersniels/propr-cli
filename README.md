@@ -1,5 +1,8 @@
 # Propr
 
+[![crates.io](https://img.shields.io/crates/v/propr.svg)](https://crates.io/crates/propr)
+![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/segersniels/propr-cli/ci.yml)
+
 Generate GitHub PR descriptions from the command line with the help of AI. 
 `propr` aims to populate a basic PR description right from your terminal so you can focus on more important things.
 
