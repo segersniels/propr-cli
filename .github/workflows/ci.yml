@@ -25,6 +25,16 @@ jobs:
       fail-fast: false
       matrix:
         job:
+          - {
+              target: x86_64-unknown-linux-musl,
+              exe: amd64-linux,
+              os: ubuntu-latest,
+            }
+          - {
+              target: aarch64-unknown-linux-musl,
+              exe: aarch64-linux,
+              os: ubuntu-latest,
+            }
           - { target: x86_64-apple-darwin, exe: macos, os: macos-latest }
     runs-on: ${{ matrix.job.os }}
     steps:
@@ -40,9 +50,7 @@ jobs:
           args: --release --target=${{ matrix.job.target }} --locked
           command: build
       - name: Rename result
-        run: |
-          rm target/${{ matrix.job.target }}/release/propr.d
-          cp target/${{ matrix.job.target }}/release/propr* propr-${{ matrix.job.exe }}
+        run: cp target/${{ matrix.job.target }}/release/propr propr-${{ matrix.job.exe }}
       - name: Archive production artifacts
         uses: actions/upload-artifact@v3
         with:
@@ -63,18 +71,25 @@ jobs:
       - name: Get current package version
         id: current_version
         run: echo "version=$(make version)" >> $GITHUB_OUTPUT
+      - uses: mukunku/tag-exists-action@v1.4.0
+        id: check_tag
+        with:
+          tag: "${{ steps.current_version.outputs.version }}"
       - uses: "marvinpinto/action-automatic-releases@latest"
+        if: steps.check_tag.outputs.exists == 'false'
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: "${{ steps.current_version.outputs.version }}"
           prerelease: false
           files: |
             ./bin/propr-macos
+            ./bin/propr-aarch64-linux
+            ./bin/propr-amd64-linux
 
   publish:
     needs: release
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/master' && needs.release.outputs.tag_exists == 'false'
     environment: production
     steps:
       - uses: actions/checkout@v3
