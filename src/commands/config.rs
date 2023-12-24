@@ -1,6 +1,10 @@
 use clap::ArgMatches;
 
-use crate::utils::{config, openai::ALLOWED_MODELS, prompt};
+use crate::utils::{
+    config::{self, AssistantConfig},
+    openai::ALLOWED_MODELS,
+    prompt,
+};
 
 pub fn run(sub_matches: &ArgMatches) {
     let mut config = config::load();
@@ -49,6 +53,29 @@ pub fn run(sub_matches: &ArgMatches) {
             );
 
             println!("{:?}", config);
+        }
+        Some(("assistant", _sub_matches)) => {
+            let enabled = prompt::ask_for_confirmation("Would you like to use an assistant?");
+
+            let assistant_id = if enabled {
+                prompt::ask_with_input(
+                    "Provide the assistant's id",
+                    Some(config.assistant.id.clone()),
+                )
+            } else {
+                String::from("")
+            };
+
+            config.assistant = AssistantConfig {
+                enabled,
+                id: if enabled {
+                    assistant_id
+                } else {
+                    config.assistant.id
+                },
+            };
+
+            config::save(config);
         }
         _ => unreachable!(),
     }

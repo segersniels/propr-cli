@@ -66,6 +66,9 @@ fn cli() -> Command {
                     Command::new("list")
                         .alias("ls")
                         .about("List the current configuration"),
+                )
+                .subcommand(
+                    Command::new("assistant").about("Configure whether to use an assistant or not"),
                 ),
         )
 }

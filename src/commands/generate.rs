@@ -22,14 +22,33 @@ pub async fn run(sub_matches: &ArgMatches) {
         .get_one::<String>("model")
         .unwrap_or(&config.model);
 
-    match openai::generate_description(&config.prompt, &diff, &config.template, model).await {
-        Ok(description) => {
-            loader.stop_with_message("✅ Done\n".into());
-            println!("{}", description);
+    if config.assistant.enabled {
+        match openai::generate_description_through_assistant(
+            &config.assistant.id,
+            &diff,
+            &config.template,
+        )
+        .await
+        {
+            Ok(description) => {
+                loader.stop_with_message("✅ Done\n".into());
+                println!("{}", description);
+            }
+            Err(e) => {
+                println!("{}", e);
+                process::exit(1);
+            }
         }
-        Err(e) => {
-            println!("{}", e);
-            process::exit(1);
+    } else {
+        match openai::generate_description(&config.prompt, &diff, &config.template, model).await {
+            Ok(description) => {
+                loader.stop_with_message("✅ Done\n".into());
+                println!("{}", description);
+            }
+            Err(e) => {
+                println!("{}", e);
+                process::exit(1);
+            }
         }
     }
 }
