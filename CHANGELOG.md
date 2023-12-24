@@ -1,10 +1,12 @@
 # Changelog
 
-<a name="next"></a>
-## next
+<a name="1.3.0"></a>
+## 1.3.0 (2023-12-24)
 
 ### Added
 
+- 👷‍♂️ Allow publishing to NPM [[c633bd3](https://github.com/segersniels/propr-cli/commit/c633bd3463e7dbd7e67289e4b08bb7de37307448)]
+- 👷‍♂️ Build other architectures as well [[e3fccaa](https://github.com/segersniels/propr-cli/commit/e3fccaa21cdb9330a859da90d89628134edfc727)]
 - ✨ Add shell install script [[517ee82](https://github.com/segersniels/propr-cli/commit/517ee82c5fa6cc96cb6d5bb9abaf19855b3c7428)]
 - ✨ Allow specifying a default value [[c594440](https://github.com/segersniels/propr-cli/commit/c59444064314a0c6d0a3a6acedffead3f7de34d9)]
 - ✨ Add possibility to use a custom assistant [[5f53f07](https://github.com/segersniels/propr-cli/commit/5f53f0778e39613c57ea307a07df60241fb16473)]
@@ -21,6 +23,7 @@
 
 ### Miscellaneous
 
+- 📝 Update CHANGELOG [[eb42d6b](https://github.com/segersniels/propr-cli/commit/eb42d6b22e22507edbd521a5d5cb9e1b453249bc)]
 - 📝 Remove the $ infront of shell command [[06632e2](https://github.com/segersniels/propr-cli/commit/06632e2af6ce9ec05bf661914c87611f379226cc)]
 -  Merge pull request [#7](https://github.com/segersniels/propr-cli/issues/7) from segersniels/feature/assistant [[b2764d4](https://github.com/segersniels/propr-cli/commit/b2764d472874ff94287e1db325ac42ee91b26689)]
 -  Merge pull request [#6](https://github.com/segersniels/propr-cli/issues/6) from segersniels/feature/system-message-configuration [[1ef6b59](https://github.com/segersniels/propr-cli/commit/1ef6b59ecf40e98cb60772b5a90c6ff712bdba49)]
