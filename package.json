@@ -1,0 +1,37 @@
+{
+  "name": "@segersniels/propr",
+  "version": "1.0.0",
+  "description": "Generate PR descriptions from the command line",
+  "files": [
+    "bin",
+    "scripts/run.sh"
+  ],
+  "bin": {
+    "propr": "./scripts/run.sh"
+  },
+  "author": "Niels Segers",
+  "license": "ISC",
+  "homepage": "https://github.com/segersniels/propr-cli#readme",
+  "bugs": {
+    "url": "https://github.com/segersniels/propr-cli/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/segersniels/propr-cli.git"
+  },
+  "keywords": [
+    "openai",
+    "chatgpt",
+    "gpt",
+    "github",
+    "pull",
+    "request",
+    "pr",
+    "generate",
+    "description"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
+}

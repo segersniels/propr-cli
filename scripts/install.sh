@@ -8,13 +8,6 @@ BIN_DIRECTORY=/usr/local/bin
 
 function determine_platform_binary() {
     case $PLATFORM in
-    Linux)
-        if [ $(uname -m) = "aarch64" ]; then
-        PLATFORM_BINARY="${BINARY}-aarch64-linux"
-        else
-        PLATFORM_BINARY="${BINARY}-amd64-linux"
-        fi
-        ;;
     Darwin)
         PLATFORM_BINARY="${BINARY}-macos"
         ;;
