@@ -13,7 +13,7 @@ pub struct Config {
 impl Default for Config {
     fn default() -> Self {
         Self {
-            model: "gpt-3.5-turbo".into(),
+            model: "gpt-3.5-turbo-1106".into(),
             system_message: r#"You will be asked to write a concise GitHub PR description based on a provided git diff.
 Analyze the code changes and provide a concise explanation of the changes, their context and why they were made.
 

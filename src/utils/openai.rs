@@ -2,9 +2,10 @@ use reqwest::Error;
 use serde::Deserialize;
 use std::process;
 
-pub const ALLOWED_MODELS: [&str; 5] = [
+pub const ALLOWED_MODELS: [&str; 6] = [
     "gpt-3.5-turbo",
     "gpt-3.5-turbo-16k",
+    "gpt-3.5-turbo-1106",
     "gpt-4",
     "gpt-4-32k",
     "gpt-4-1106-preview",
@@ -158,7 +159,7 @@ pub async fn generate_title(description: &str) -> Result<String, Error> {
     Generate the title using gpt-3.5-turbo since it is the fastest model
     and we don't want to spend too many tokens on this
     */
-    let body = create_payload("gpt-3.5-turbo", system_message, description);
+    let body = create_payload("gpt-3.5-turbo-1106", system_message, description);
 
     get_chat_completion(&body).await
 }
