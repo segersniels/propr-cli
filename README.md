@@ -68,3 +68,7 @@ You can regenerate a PR description at any time, even after the PR has already b
 #### Automatically generating a  title
 
 There is the option to allow `propr` to automatically generate a PR title based on the generated description. To enable this refer to `propr config generate-title`.
+
+#### Using an assistant
+
+You can configure `propr` to use a custom assistant using `propr config assistant`. This may be interesting if you want to share prompts and templates between devices and/or want to control everything externally.
