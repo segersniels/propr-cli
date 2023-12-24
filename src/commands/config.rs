@@ -6,6 +6,16 @@ pub fn run(sub_matches: &ArgMatches) {
     let mut config = config::load();
 
     match sub_matches.subcommand() {
+        Some(("prompt", _sub_matches)) => {
+            let prompt = prompt::ask_with_editor(&config.prompt);
+            if prompt.is_empty() {
+                return;
+            }
+
+            config.prompt = prompt;
+
+            config::save(config);
+        }
         Some(("template", _sub_matches)) => {
             let template = prompt::ask_with_editor(&config.template);
             if template.is_empty() {

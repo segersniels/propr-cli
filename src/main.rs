@@ -53,6 +53,9 @@ fn cli() -> Command {
             Command::new("config")
                 .about("Configure propr to your liking")
                 .arg_required_else_help(true)
+                .subcommand(
+                    Command::new("prompt").about("Adjust the system message used in the prompt"),
+                )
                 .subcommand(Command::new("template").about("Adjust the template used by propr"))
                 .subcommand(Command::new("model").about("Adjust the model used by propr"))
                 .subcommand(

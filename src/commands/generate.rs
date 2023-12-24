@@ -21,7 +21,8 @@ pub async fn run(sub_matches: &ArgMatches) {
     let model = sub_matches
         .get_one::<String>("model")
         .unwrap_or(&config.model);
-    match openai::generate_description(&diff, &config.template, model).await {
+
+    match openai::generate_description(&config.prompt, &diff, &config.template, model).await {
         Ok(description) => {
             loader.stop_with_message("✅ Done\n".into());
             println!("{}", description);

@@ -54,12 +54,13 @@ pub async fn run(sub_matches: &ArgMatches) {
         let model = sub_matches
             .get_one::<String>("model")
             .unwrap_or(&config.model);
-        let description = openai::generate_description(&diff, &config.template, model)
-            .await
-            .unwrap_or_else(|err| {
-                println!("{}", err);
-                process::exit(1);
-            });
+        let description =
+            openai::generate_description(&config.prompt, &diff, &config.template, model)
+                .await
+                .unwrap_or_else(|err| {
+                    println!("{}", err);
+                    process::exit(1);
+                });
         loader.stop_with_message("✅ Done\n".into());
 
         // Print the description
