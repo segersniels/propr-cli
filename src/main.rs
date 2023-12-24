@@ -28,6 +28,12 @@ fn cli() -> Command {
                         .help("Instructs propr to use a specific model")
                         .value_parser(ALLOWED_MODELS)
                         .action(ArgAction::Set),
+                )
+                .arg(
+                    clap::Arg::new("assistant-id")
+                        .long("assistant-id")
+                        .help("Instructs propr to use the specified assistant")
+                        .action(ArgAction::Set),
                 ),
         )
         .subcommand(
@@ -46,6 +52,12 @@ fn cli() -> Command {
                         .long("model")
                         .help("Instructs propr to use a specific model")
                         .value_parser(ALLOWED_MODELS)
+                        .action(ArgAction::Set),
+                )
+                .arg(
+                    clap::Arg::new("assistant-id")
+                        .long("assistant-id")
+                        .help("Instructs propr to use the specified assistant")
                         .action(ArgAction::Set),
                 ),
         )
