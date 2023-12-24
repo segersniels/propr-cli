@@ -48,22 +48,16 @@ fn prepare_diff(diff: &str) -> String {
     remove_lock_files(chunks).join("\n")
 }
 
-fn generate_system_message_for_diff(template: &str) -> String {
+fn generate_system_message_for_diff(system_message: &str, template: &str) -> String {
     format!(
-        r#"You will be asked to write a concise GitHub PR description based on a provided git diff.
-        Analyze the code changes and provide a concise explanation of the changes, their context and why they were made.
-        Don't reference file names or directories directly, instead give a general explanation of the changes made.
-        Do not treat imports and requires as changes or new features.
+        r#"{}
 
-        Use the following template to write your description:
+        Follow this exact template to write your description:
         """
         {}
         """
-
-        If you can't determine changes for a specific section in the template just omit that section out entirely.
-        If the provided message is not a diff respond with an appropriate message.
         "#,
-        template,
+        system_message, template,
     )
 }
 
@@ -171,11 +165,12 @@ pub async fn generate_title(description: &str) -> Result<String, Error> {
 
 /// Generate a concise PR description
 pub async fn generate_description(
+    system_message: &str,
     diff: &str,
     template: &str,
     model: &str,
 ) -> Result<String, Error> {
-    let system_message = generate_system_message_for_diff(template);
+    let system_message = generate_system_message_for_diff(system_message, template);
     let body = create_payload(model, &system_message, &prepare_diff(diff));
 
     get_chat_completion(&body).await
