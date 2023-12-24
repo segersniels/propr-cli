@@ -6,13 +6,13 @@ pub fn run(sub_matches: &ArgMatches) {
     let mut config = config::load();
 
     match sub_matches.subcommand() {
-        Some(("system-message", _sub_matches)) => {
-            let system_message = prompt::ask_with_editor(&config.system_message);
-            if system_message.is_empty() {
+        Some(("prompt", _sub_matches)) => {
+            let prompt = prompt::ask_with_editor(&config.prompt);
+            if prompt.is_empty() {
                 return;
             }
 
-            config.system_message = system_message;
+            config.prompt = prompt;
 
             config::save(config);
         }

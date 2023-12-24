@@ -166,12 +166,12 @@ pub async fn generate_title(description: &str) -> Result<String, Error> {
 
 /// Generate a concise PR description
 pub async fn generate_description(
-    system_message: &str,
+    prompt: &str,
     diff: &str,
     template: &str,
     model: &str,
 ) -> Result<String, Error> {
-    let system_message = generate_system_message_for_diff(system_message, template);
+    let system_message = generate_system_message_for_diff(prompt, template);
     let body = create_payload(model, &system_message, &prepare_diff(diff));
 
     get_chat_completion(&body).await

@@ -5,7 +5,7 @@ use std::process;
 #[serde(default)]
 pub struct Config {
     pub model: String,
-    pub system_message: String,
+    pub prompt: String,
     pub template: String,
     pub generate_title: bool,
 }
@@ -14,7 +14,7 @@ impl Default for Config {
     fn default() -> Self {
         Self {
             model: "gpt-3.5-turbo-1106".into(),
-            system_message: r#"You will be asked to write a concise GitHub PR description based on a provided git diff.
+            prompt: r#"You will be asked to write a concise GitHub PR description based on a provided git diff.
 Analyze the code changes and provide a concise explanation of the changes, their context and why they were made.
 
 Don't reference file names or directories directly, instead give a general explanation of the changes made.
