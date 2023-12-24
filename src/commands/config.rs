@@ -58,7 +58,10 @@ pub fn run(sub_matches: &ArgMatches) {
             let enabled = prompt::ask_for_confirmation("Would you like to use an assistant?");
 
             let assistant_id = if enabled {
-                prompt::ask_with_input("Provide the assistant's id")
+                prompt::ask_with_input(
+                    "Provide the assistant's id",
+                    Some(config.assistant.id.clone()),
+                )
             } else {
                 String::from("")
             };

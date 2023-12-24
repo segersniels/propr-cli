@@ -18,8 +18,12 @@ pub fn ask_with_prompt(choices: Vec<&str>, message: &str) -> String {
     choices[choice].to_string()
 }
 
-pub fn ask_with_input(message: &str) -> String {
-    Input::new().with_prompt(message).interact().unwrap()
+pub fn ask_with_input(message: &str, default: Option<String>) -> String {
+    Input::new()
+        .with_prompt(message)
+        .default(default.unwrap_or_default())
+        .interact()
+        .unwrap()
 }
 
 pub fn ask_for_confirmation(message: &str) -> bool {

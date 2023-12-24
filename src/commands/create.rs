@@ -15,7 +15,7 @@ async fn get_title(body: &str) -> String {
             process::exit(1);
         })
     } else {
-        prompt::ask_with_input("Provide a title for your pull request")
+        prompt::ask_with_input("Provide a title for your pull request", None)
     }
 }
 
