@@ -12,7 +12,7 @@ Generate GitHub PR descriptions from the command line with the help of AI.
 ## Install
 
 ```bash
-$ sh -c "$(curl -fsSL https://raw.githubusercontent.com/segersniels/propr-cli/master/scripts/install.sh)"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/segersniels/propr-cli/master/scripts/install.sh)"
 ```
 
 Or alternatively if you are familiar with Rust's package manager `cargo` you can install it through there:
