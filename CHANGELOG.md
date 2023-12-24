@@ -3,9 +3,28 @@
 <a name="next"></a>
 ## next
 
+### Added
+
+- ✨ Add shell install script [[517ee82](https://github.com/segersniels/propr-cli/commit/517ee82c5fa6cc96cb6d5bb9abaf19855b3c7428)]
+- ✨ Allow specifying a default value [[c594440](https://github.com/segersniels/propr-cli/commit/c59444064314a0c6d0a3a6acedffead3f7de34d9)]
+- ✨ Add possibility to use a custom assistant [[5f53f07](https://github.com/segersniels/propr-cli/commit/5f53f0778e39613c57ea307a07df60241fb16473)]
+- ✨ Allow adjusting the system message [[aea08af](https://github.com/segersniels/propr-cli/commit/aea08afb156d63d8c26341c5bcc687b8e80bbbe8)]
+
 ### Changed
 
-- ♻️ Change how we generate changelog [[9e4a8af](https://github.com/segersniels/propr-cli/commit/9e4a8afff86fd7fd8ad1621a1d6a0d0041cd5dd5)]
+- ♻️ Use SDK for regular chat completion as well [[7ad898d](https://github.com/segersniels/propr-cli/commit/7ad898d36a4a14be22653b7b490ac94da8861dc9)]
+- ♻️ Only provide a default if actual value is provided [[c64114a](https://github.com/segersniels/propr-cli/commit/c64114a86ba34fa2e0eff552c325ae6751202f34)]
+- ♻️ Configure through config subcommand instead [[a33fe70](https://github.com/segersniels/propr-cli/commit/a33fe7008bc77ffe52e57927cd17c4f49b620c8c)]
+- 🎨 Change name to prompt instead of system_message [[8cb518d](https://github.com/segersniels/propr-cli/commit/8cb518d5b37ff94219ae68198b7fe2d639b3824e)]
+- ♻️ Add and use updated 3.5 turbo [[8abcf39](https://github.com/segersniels/propr-cli/commit/8abcf3905e714abf761cb25448f7283227292645)]
+- ♻️ Change how we generate changelog [[aab6446](https://github.com/segersniels/propr-cli/commit/aab644649cc7ab462f3e13e20dda4df10aac6fd5)]
+
+### Miscellaneous
+
+- 📝 Remove the $ infront of shell command [[06632e2](https://github.com/segersniels/propr-cli/commit/06632e2af6ce9ec05bf661914c87611f379226cc)]
+-  Merge pull request [#7](https://github.com/segersniels/propr-cli/issues/7) from segersniels/feature/assistant [[b2764d4](https://github.com/segersniels/propr-cli/commit/b2764d472874ff94287e1db325ac42ee91b26689)]
+-  Merge pull request [#6](https://github.com/segersniels/propr-cli/issues/6) from segersniels/feature/system-message-configuration [[1ef6b59](https://github.com/segersniels/propr-cli/commit/1ef6b59ecf40e98cb60772b5a90c6ff712bdba49)]
+- 📝 Add badges [[2b2e900](https://github.com/segersniels/propr-cli/commit/2b2e900cd7d1f282fdfda3b7ab188b6ea2e43793)]
 
 
 <a name="1.2.1"></a>
