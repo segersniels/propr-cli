@@ -55,14 +55,17 @@ pub async fn run(sub_matches: &ArgMatches) {
             .get_one::<String>("model")
             .unwrap_or(&config.model);
 
-        let description = if let Some(assistant_id) = sub_matches.get_one::<String>("assistant-id")
-        {
-            openai::generate_description_through_assistant(assistant_id, &diff, &config.template)
-                .await
-                .unwrap_or_else(|err| {
-                    println!("{}", err);
-                    process::exit(1);
-                })
+        let description = if config.assistant.enabled {
+            openai::generate_description_through_assistant(
+                &config.assistant.id,
+                &diff,
+                &config.template,
+            )
+            .await
+            .unwrap_or_else(|err| {
+                println!("{}", err);
+                process::exit(1);
+            })
         } else {
             openai::generate_description(&config.prompt, &diff, &config.template, model)
                 .await

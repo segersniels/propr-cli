@@ -22,9 +22,13 @@ pub async fn run(sub_matches: &ArgMatches) {
         .get_one::<String>("model")
         .unwrap_or(&config.model);
 
-    if let Some(assistant_id) = sub_matches.get_one::<String>("assistant-id") {
-        match openai::generate_description_through_assistant(assistant_id, &diff, &config.template)
-            .await
+    if config.assistant.enabled {
+        match openai::generate_description_through_assistant(
+            &config.assistant.id,
+            &diff,
+            &config.template,
+        )
+        .await
         {
             Ok(description) => {
                 loader.stop_with_message("✅ Done\n".into());

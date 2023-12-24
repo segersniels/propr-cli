@@ -2,12 +2,19 @@ use serde::{Deserialize, Serialize};
 use std::process;
 
 #[derive(Debug, Serialize, Deserialize)]
+pub struct AssistantConfig {
+    pub enabled: bool,
+    pub id: String,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
 #[serde(default)]
 pub struct Config {
     pub model: String,
     pub prompt: String,
     pub template: String,
     pub generate_title: bool,
+    pub assistant: AssistantConfig,
 }
 
 impl Default for Config {
@@ -22,6 +29,10 @@ Do not treat imports and requires as changes or new features. If the provided me
 Don't surround your PR description in codeblocks but still write GitHub supported markdown."#.into(),
             template: r#"# Description"#.into(),
             generate_title: false,
+            assistant: AssistantConfig {
+                enabled: false,
+                id: "".into(),
+            },
         }
     }
 }
