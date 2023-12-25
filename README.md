@@ -15,10 +15,16 @@ Generate GitHub PR descriptions from the command line with the help of AI.
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/segersniels/propr-cli/master/scripts/install.sh)"
 ```
 
-Or alternatively if you are familiar with Rust's package manager `cargo` you can install it through there:
+### Cargo
 
 ```bash
 cargo install propr
+```
+
+### NPM
+
+```bash
+npm install -g @segersniels/propr
 ```
 
 ### Binary
