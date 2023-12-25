@@ -37,35 +37,42 @@ Don't surround your PR description in codeblocks but still write GitHub supporte
     }
 }
 
-pub fn get_info() -> (String, String) {
-    let app_name = env!("CARGO_PKG_NAME");
-    let config_name = "settings";
+impl Config {
+    fn _get_info() -> (String, String) {
+        let app_name = env!("CARGO_PKG_NAME");
+        let config_name = "settings";
 
-    (app_name.to_string(), config_name.to_string())
-}
+        (app_name.to_string(), config_name.to_string())
+    }
 
-pub fn load() -> Config {
-    let (app_name, config_name) = get_info();
-    let result: Result<Config, confy::ConfyError> = confy::load(&app_name, config_name.as_str());
+    pub fn get_info(&self) -> (String, String) {
+        Self::_get_info()
+    }
 
-    match result {
-        Ok(config) => config,
-        Err(e) => {
-            println!("{}", e);
-            process::exit(1);
+    pub fn load() -> Self {
+        let (app_name, config_name) = Self::_get_info();
+        let result: Result<Config, confy::ConfyError> =
+            confy::load(&app_name, config_name.as_str());
+
+        match result {
+            Ok(config) => config,
+            Err(e) => {
+                println!("{}", e);
+                process::exit(1);
+            }
         }
     }
-}
 
-pub fn save(config: Config) {
-    let (app_name, config_name) = get_info();
-    let result = confy::store(&app_name, config_name.as_str(), config);
+    pub fn save(&self) {
+        let (app_name, config_name) = Self::_get_info();
+        let result = confy::store(&app_name, config_name.as_str(), self);
 
-    match result {
-        Ok(_) => {}
-        Err(e) => {
-            println!("{}", e);
-            process::exit(1);
+        match result {
+            Ok(_) => {}
+            Err(e) => {
+                println!("{}", e);
+                process::exit(1);
+            }
         }
     }
 }

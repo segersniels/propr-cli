@@ -11,6 +11,7 @@ fn cli() -> Command {
         .version(env!("CARGO_PKG_VERSION"))
         .subcommand_required(true)
         .arg_required_else_help(true)
+        .subcommand(Command::new("init").about("Initializes propr with a base configuration"))
         .subcommand(
             Command::new("create")
                 .about("Creates a PR with a generated description")
@@ -79,6 +80,7 @@ async fn main() {
 
     let matches = cli().get_matches();
     match matches.subcommand() {
+        Some(("init", _sub_matches)) => commands::init::run(),
         Some(("create", sub_matches)) => commands::create::run(sub_matches).await,
         Some(("generate", sub_matches)) => commands::generate::run(sub_matches).await,
         Some(("config", sub_matches)) => commands::config::run(sub_matches),

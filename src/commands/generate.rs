@@ -2,7 +2,7 @@ use std::process;
 
 use clap::ArgMatches;
 
-use crate::utils::{config, github, loader, openai};
+use crate::utils::{config::Config, github, loader, openai};
 
 pub async fn run(sub_matches: &ArgMatches) {
     let default_branch = github::get_default_branch();
@@ -16,7 +16,7 @@ pub async fn run(sub_matches: &ArgMatches) {
         return;
     }
 
-    let config = config::load();
+    let config = Config::load();
     let mut loader = loader::create_loader("Generating");
     let model = sub_matches
         .get_one::<String>("model")

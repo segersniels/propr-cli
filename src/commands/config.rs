@@ -1,13 +1,9 @@
 use clap::ArgMatches;
 
-use crate::utils::{
-    config::{self, AssistantConfig},
-    openai::ALLOWED_MODELS,
-    prompt,
-};
+use crate::utils::{config::Config, openai::ALLOWED_MODELS, prompt};
 
 pub fn run(sub_matches: &ArgMatches) {
-    let mut config = config::load();
+    let mut config = Config::load();
 
     match sub_matches.subcommand() {
         Some(("prompt", _sub_matches)) => {
@@ -17,8 +13,7 @@ pub fn run(sub_matches: &ArgMatches) {
             }
 
             config.prompt = prompt;
-
-            config::save(config);
+            config.save();
         }
         Some(("template", _sub_matches)) => {
             let template = prompt::ask_with_editor(&config.template);
@@ -27,8 +22,7 @@ pub fn run(sub_matches: &ArgMatches) {
             }
 
             config.template = template;
-
-            config::save(config);
+            config.save();
         }
         Some(("model", _sub_matches)) => {
             config.model = prompt::ask_with_prompt(
@@ -36,16 +30,16 @@ pub fn run(sub_matches: &ArgMatches) {
                 &format!("Select the model to use (current: {})", &config.model),
             );
 
-            config::save(config);
+            config.save();
         }
         Some(("generate-title", _sub_matches)) => {
             config.generate_title =
                 prompt::ask_for_confirmation("Would you like propr to generate a title for you?");
 
-            config::save(config);
+            config.save();
         }
         Some(("list", _sub_matches)) => {
-            let (app_name, config_name) = config::get_info();
+            let (app_name, config_name) = config.get_info();
 
             println!(
                 "Config located at: {:?}",
@@ -55,27 +49,9 @@ pub fn run(sub_matches: &ArgMatches) {
             println!("{:?}", config);
         }
         Some(("assistant", _sub_matches)) => {
-            let enabled = prompt::ask_for_confirmation("Would you like to use an assistant?");
+            config.assistant = prompt::configure_assistant(&config);
 
-            let assistant_id = if enabled {
-                prompt::ask_with_input(
-                    "Provide the assistant's id",
-                    Some(config.assistant.id.clone()),
-                )
-            } else {
-                String::from("")
-            };
-
-            config.assistant = AssistantConfig {
-                enabled,
-                id: if enabled {
-                    assistant_id
-                } else {
-                    config.assistant.id
-                },
-            };
-
-            config::save(config);
+            config.save();
         }
         _ => unreachable!(),
     }

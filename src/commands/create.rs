@@ -3,11 +3,11 @@ use std::process;
 use clap::ArgMatches;
 use octocrab::Octocrab;
 
-use crate::utils::{config, github, loader, openai, prompt};
+use crate::utils::{config::Config, github, loader, openai, prompt};
 
 /// Depending on `config.generate_title` we either ask the user for a title or generate one
 async fn get_title(body: &str) -> String {
-    let config = config::load();
+    let config = Config::load();
 
     if config.generate_title {
         openai::generate_title(body).await.unwrap_or_else(|err| {
@@ -25,7 +25,7 @@ pub async fn run(sub_matches: &ArgMatches) {
         process::exit(0);
     });
 
-    let config = config::load();
+    let config = Config::load();
     let octocrab = Octocrab::builder()
         .personal_token(token)
         .build()
