@@ -38,6 +38,7 @@ Generate your PRs from the command line with AI
 Usage: propr <COMMAND>
 
 Commands:
+  init      Initializes propr with a base configuration
   create    Creates a PR with a generated description
   generate  Generates a PR description and outputs it
   config    Configure propr to your liking
