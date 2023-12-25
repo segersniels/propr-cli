@@ -1,6 +1,7 @@
 # Propr
 
 [![crates.io](https://img.shields.io/crates/v/propr.svg)](https://crates.io/crates/propr)
+[![npm](https://img.shields.io/npm/v/@segersniels/propr)](https://www.npmjs.com/package/@segersniels/propr)
 ![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/segersniels/propr-cli/ci.yml)
 
 Generate GitHub PR descriptions from the command line with the help of AI. 
