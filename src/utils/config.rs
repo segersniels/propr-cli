@@ -26,7 +26,7 @@ Analyze the code changes and provide a concise explanation of the changes, their
 
 Don't reference file names or directories directly, instead give a general explanation of the changes made.
 Do not treat imports and requires as changes or new features. If the provided message is not a diff respond with an appropriate message.
-Don't surround your PR description in codeblocks but still write GitHub supported markdown."#.into(),
+Don't surround your description in backticks but still write GitHub supported markdown."#.into(),
             template: r#"# Description"#.into(),
             generate_title: false,
             assistant: AssistantConfig {
